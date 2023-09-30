@@ -1,0 +1,27 @@
+.news-feed-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.news-feed-item {
+  color: black;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 20px;
+  width: 50%;
+}
+
+.news-feed-item img {
+  max-width: 100%;
+  height: auto;
+}
+
+.news-feed-item a {
+  display: block;
+  margin-top: 10px;
+  color: #007bff;
+  text-decoration: none;
+}
