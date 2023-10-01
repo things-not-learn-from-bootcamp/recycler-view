@@ -34,17 +34,17 @@ const NewsFeed: React.FC = () => {
                 setFeeds(data.articles);
             });
     }, []);
-
     return (
         <div className="news-feed-container">
             {feeds.length === 0 ? (
                 <p>Loading...</p>
             ) : (
                 <RecyclerView
-                    // initialNumToRender
+                    initialNumToRender={3}
                     keyExtractor={(item) => item.title}
                     itemCount={feeds.length}
                     items={feeds}
+                    itemSize={300}
                     renderItem={(feed,) =>
                         (
                             <div key={feed.url} className="news-feed-item">
