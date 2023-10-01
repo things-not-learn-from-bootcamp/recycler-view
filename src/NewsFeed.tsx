@@ -41,8 +41,8 @@ const NewsFeed: React.FC = () => {
                 <p>Loading...</p>
             ) : (
                 <RecyclerView
-                    // hideVerticalScrollbar
                     // initialNumToRender
+                    keyExtractor={(item) => item.title}
                     itemCount={feeds.length}
                     items={feeds}
                     renderItem={(feed,) =>
