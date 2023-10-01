@@ -1,4 +1,5 @@
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import RecyclerView from "./RecyclerView";
 
 interface Source {
     id?: string;
@@ -18,8 +19,7 @@ interface Feed {
 
 type Feeds = Feed[];
 
-
-function NewsFeed() {
+const NewsFeed: React.FC = () => {
     const [feeds, setFeeds] = useState<Feeds>([]);
 
     useEffect(() => {
@@ -33,25 +33,32 @@ function NewsFeed() {
             .then(data => {
                 setFeeds(data.articles);
             });
-    }, []); // Empty dependency array means this useEffect runs once when component mounts
+    }, []);
 
     return (
         <div className="news-feed-container">
             {feeds.length === 0 ? (
                 <p>Loading...</p>
             ) : (
-                feeds.map(feed => (
-                    <div key={feed.url} className="news-feed-item">
-                        <h2>{feed.title}</h2>
-                        <p><strong>Author:</strong> {feed.author || 'Unknown'}</p>
-                        <p><strong>Source:</strong> {feed.source.name}</p>
-                        <p>{feed.description}</p>
-                        <p>{feed.content}</p>
-                        <a href={feed.url} target="_blank" rel="noopener noreferrer">Read more</a>
-                        <img src={feed.urlToImage} alt={feed.title}/>
-                        <p><strong>Published At:</strong> {new Date(feed.publishedAt).toLocaleString()}</p>
-                    </div>
-                ))
+                <RecyclerView
+                    // hideVerticalScrollbar
+                    // initialNumToRender
+                    itemCount={feeds.length}
+                    items={feeds}
+                    renderItem={(feed,) =>
+                        (
+                            <div key={feed.url} className="news-feed-item">
+                                <h2>{feed.title}</h2>
+                                <p><strong>Author:</strong> {feed.author || 'Unknown'}</p>
+                                <p><strong>Source:</strong> {feed.source.name}</p>
+                                <p>{feed.description}</p>
+                                <p>{feed.content}</p>
+                                <a href={feed.url} target="_blank" rel="noopener noreferrer">Read more</a>
+                                <img src={feed.urlToImage} alt={feed.title}/>
+                                <p><strong>Published At:</strong> {new Date(feed.publishedAt).toLocaleString()}</p>
+                            </div>
+                        )
+                    }/>
             )}
         </div>
     );

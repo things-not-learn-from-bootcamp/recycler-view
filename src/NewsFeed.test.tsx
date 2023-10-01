@@ -39,6 +39,12 @@ describe('NewsFeed Component', () => {
     });
 
     it('renders loading', async () => {
+        global.fetch = jest.fn(() =>
+            Promise.resolve({
+                json: () => Promise.resolve([])
+            })
+        ) as jest.Mock<Promise<Response>>;
+
         render(<NewsFeed/>);
 
         expect(await screen.findByText('Loading...')).toBeVisible();
